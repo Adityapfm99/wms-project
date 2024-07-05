@@ -1,5 +1,7 @@
 from odoo import models, fields, api
 import base64
+import sys
+sys.path.append('/cloudclusters/odoo/odoo/venv/lib/python3.10/site-packages')
 import barcode
 import os
 from barcode.writer import ImageWriter
@@ -20,14 +22,18 @@ class ProductTemplate(models.Model):
     def _generate_barcode(self):
         for record in self:
             if record.barcode:
-                Code128 = barcode.get_barcode_class('code128')
-                code128 = Code128(record.barcode, writer=ImageWriter())
+                if len(record.barcode) != 13 or not record.barcode.isdigit():
+                    _logger.error("Barcode must be exactly 13 digits long.")
+                    raise UserError("Barcode must be exactly 13 digits long and numeric.")
+                
+                EAN13 = barcode.get_barcode_class('ean13')
+                ean13 = EAN13(record.barcode, writer=ImageWriter())
                 buffer = BytesIO()
-                code128.write(buffer)
+                ean13.write(buffer)
                 record.barcode_image = base64.b64encode(buffer.getvalue())
             else:
                 record.barcode_image = False
-    
+                
     def action_print_barcode(self):
         _logger.info("Printing barcode for product: %s", self.name)
         for record in self:

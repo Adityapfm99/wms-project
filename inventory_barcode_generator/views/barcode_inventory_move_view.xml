@@ -24,7 +24,7 @@
                     </group>
                     <footer>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
-                        <button name="action_move_inventory1" type="object" string="Move Inventory1" class="btn-primary"/>
+                        <button name="action_move_inventory1" type="object" string="Validate" class="btn-primary"/>
                     </footer>
                 </form>
             </field>

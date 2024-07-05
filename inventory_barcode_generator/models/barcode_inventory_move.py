@@ -56,33 +56,62 @@ class BarcodeInventoryMove(models.TransientModel):
     
     def action_move_inventory1(self):
         if not self.location_dest_id:
-            raise UserError("Please select a destination location first1.")
+            raise UserError("Please select a destination location first.")
+
         if not self.move_line_ids:
             raise UserError("No products to move.")
 
-        for line in self.move_line_ids:
-            print("======product_id==========",line.product_id)
-            _logger.info(f"Attempting to move inventory for product_id={line.product_id.id}, location_id={line.location_id.id}, location_dest_id={line.location_dest_id.id}, quantity={line.quantity}")
-            if not line.product_id:
-                raise UserError("No product found for the given barcode.")
-            if not line.location_id:
-                raise UserError("No source location found for the product.")
+        picking_type = self.env.ref('stock.picking_type_internal')
+        picking = self.env['stock.picking'].create({
+            'picking_type_id': picking_type.id,
+            'location_id': self.move_line_ids[0].location_id.id,
+            'location_dest_id': self.location_dest_id.id,
+        })
 
+        _logger.info(f"Created stock picking: {picking.name}")
+
+        # Create stock moves
+        for line in self.move_line_ids:
             move = self.env['stock.move'].create({
-                'name': 'Barcode Inventory Move',
+                'name': line.product_id.name,
                 'product_id': line.product_id.id,
                 'product_uom_qty': line.quantity,
                 'product_uom': line.product_id.uom_id.id,
                 'location_id': line.location_id.id,
                 'location_dest_id': line.location_dest_id.id,
+                'picking_id': picking.id,
             })
-
             _logger.info(f"Created stock move: {move.name}")
 
-            move._action_confirm()
-            move._action_assign()
-            move._action_done()
+        picking.action_confirm()
+        picking.action_assign()
 
-            _logger.info(f"Stock move {move.name} done")
+        for move in picking.move_ids:
+            move_line = self.env['stock.move.line'].create({
+                'move_id': move.id,
+                'product_id': move.product_id.id,
+                'product_uom_id': move.product_uom.id,
+                'location_id': move.location_id.id,
+                'location_dest_id': move.location_dest_id.id,
+                'quantity': move.product_uom_qty,
+            })
 
-        return {'type': 'ir.actions.act_window_close'}
+        _logger.info(f"Move Line Created")
+
+        picking.button_validate()
+
+        _logger.info(f"Stock picking {picking.name} validated")
+        
+        return {
+        'type': 'ir.actions.client',
+        'tag': 'display_notification',
+        'params': {
+            'title': 'Success',
+            'message': 'Stock picking validated successfully.',
+            'type': 'success',  # Use 'success' for green color
+            'sticky': False,
+            'next': {'type': 'ir.actions.act_window_close'}  # Chain the close window action
+        },
+    }
+
+    
