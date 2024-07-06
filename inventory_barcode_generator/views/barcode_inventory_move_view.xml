@@ -5,6 +5,9 @@
             <field name="model">barcode.inventory.move</field>
             <field name="arch" type="xml">
                 <form string="Scan Barcode" create="false" edit="false">
+                <group>
+                        <field name="move_type" widget="radio"/>
+                    </group>
                     <group>
                         <field name="location_dest_id" required="1"/>
                     </group>

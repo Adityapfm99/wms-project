@@ -22,14 +22,10 @@ class ProductTemplate(models.Model):
     def _generate_barcode(self):
         for record in self:
             if record.barcode:
-                if len(record.barcode) != 13 or not record.barcode.isdigit():
-                    _logger.error("Barcode must be exactly 13 digits long.")
-                    raise UserError("Barcode must be exactly 13 digits long and numeric.")
-                
-                EAN13 = barcode.get_barcode_class('ean13')
-                ean13 = EAN13(record.barcode, writer=ImageWriter())
+                Code128 = barcode.get_barcode_class('code128')
+                code128 = Code128(record.barcode, writer=ImageWriter())
                 buffer = BytesIO()
-                ean13.write(buffer)
+                code128.write(buffer)
                 record.barcode_image = base64.b64encode(buffer.getvalue())
             else:
                 record.barcode_image = False
