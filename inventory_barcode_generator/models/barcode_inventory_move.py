@@ -69,7 +69,15 @@ class BarcodeInventoryMove(models.TransientModel):
 
         _logger.info(f"Created stock picking: {picking.name}")
 
-        _logger.info(f"Created stock picking: {picking.name}")
+        for line in self.move_line_ids:
+            available_qty = self.env['stock.quant'].read_group(
+                [('product_id', '=', line.product_id.id), ('location_id', '=', line.location_id.id)],
+                ['quantity:sum'],
+                ['product_id', 'location_id']
+            )
+
+            if available_qty and available_qty[0]['quantity'] < line.quantity:
+                raise UserError(f"Not enough quantity of {line.product_id.name} in source location {line.location_id.display_name}.")
 
         # Create stock moves
         for line in self.move_line_ids:
@@ -99,7 +107,7 @@ class BarcodeInventoryMove(models.TransientModel):
 
         _logger.info(f"Move Line Created")
 
-        # picking.button_validate()
+        picking.button_validate()
 
         _logger.info(f"Stock picking {picking.name} validated")
         
@@ -108,7 +116,7 @@ class BarcodeInventoryMove(models.TransientModel):
         'tag': 'display_notification',
         'params': {
             'title': 'Success',
-            'message': 'Stock picking validated successfully.',
+            'message': 'Stock picking Validated Successfully.',
             'type': 'success', 
             'sticky': False,
             'next': {'type': 'ir.actions.act_window_close'}
