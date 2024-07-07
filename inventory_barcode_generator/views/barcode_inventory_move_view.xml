@@ -5,13 +5,12 @@
             <field name="model">barcode.inventory.move</field>
             <field name="arch" type="xml">
                 <form string="Scan Barcode" create="false" edit="false">
-                <group>
-                        <field name="move_type" widget="radio"/>
-                    </group>
+                   
                     <group>
-                        <field name="location_dest_id" required="1"/>
+                        <field name="location_dest_id" required="1" domain="[('usage', '=', 'internal')]" />
+                        <field name="location_id" required="1" domain="[('usage', '=', 'internal')]" />
                     </group>
-                    <group>
+                    <group class="o_field_barcode_group">
                         <field name="barcode" invisible="location_dest_id == None"/>
                     </group>
                     <group>
@@ -19,7 +18,7 @@
                             <tree editable="bottom">
                                 <field name="product_id" required="1"/>
                                 <field name="quantity" required="1"/>
-                                <field name="location_id"  required="1"/>
+                                <field name="location_id" required="1"/>
                                 <field name="location_dest_id" required="1"/>
                                 <field name="barcode" readonly="1"/>
                             </tree>

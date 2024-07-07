@@ -2,11 +2,11 @@
     <data>
         <!-- Define the action to open the wizard -->
         <record id="action_barcode_inventory_move" model="ir.actions.act_window">
-            <field name="name">Barcode Inventory Move</field>
+            <field name="name">Scan Barcode</field>
             <field name="res_model">barcode.inventory.move</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_barcode_inventory_move_form"/>
-             <field name="target">new</field>
+            <field name="target">new</field>
         </record>
 
         <!-- Define the menu item -->

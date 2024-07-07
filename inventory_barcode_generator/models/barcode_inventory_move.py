@@ -14,11 +14,7 @@ class BarcodeInventoryMove(models.TransientModel):
     quantity = fields.Float(string="Quantity", required=True, default=1.0)
     location_id = fields.Many2one('stock.location', string="Source Location",store=True)
     location_dest_id = fields.Many2one('stock.location', string="Destination Location")
-    move_type = fields.Selection([
-        ('transfer', 'Transfer'),
-        ('delivery', 'Receipt')
-    ], string='Move Type', required=True, default='transfer')
-    move_line_ids = fields.One2many('barcode.inventory.move.line', 'barcode_inventory_move_id', string='Move Lines')
+    move_line_ids = fields.One2many('barcode.inventory.move.line', 'barcode_inventory_move_id', string='Products')
 
 
     @api.onchange('barcode')
@@ -30,16 +26,11 @@ class BarcodeInventoryMove(models.TransientModel):
             _logger.info(f"Product search result: {product.id if product else 'None'}")
             if product:
                 _logger.info(f"Product found: {product.name}")
-                location_id = self._get_latest_product_location(product.id)
-                if location_id:
-                    _logger.info(f"Latest stock quant location: {location_id.id}")
-                else:
-                    _logger.info("No stock quant found for the product.")
                 
                 new_line = {
                     'product_id': product.id,
                     'quantity': 1.0,  
-                    'location_id': location_id.id if location_id else False,
+                    'location_id': self.location_id.id if self.location_id else False,
                     'location_dest_id': self.location_dest_id.id if self.location_dest_id else False,
                     'barcode': self.barcode
                 }
@@ -61,13 +52,14 @@ class BarcodeInventoryMove(models.TransientModel):
     def action_move_inventory1(self):
         if not self.location_dest_id:
             raise UserError("Please select a destination location first.")
+        if not self.location_id:
+            raise UserError("Please select a Source location first.")
 
         if not self.move_line_ids:
             raise UserError("No products to move.")
 
         picking_type_internal = self.env.ref('stock.picking_type_internal')
-        picking_type_out = self.env.ref('stock.picking_type_out')
-        picking_type = picking_type_internal if self.move_type == 'transfer' else picking_type_out
+        picking_type = picking_type_internal
 
         picking = self.env['stock.picking'].create({
             'picking_type_id': picking_type.id,

@@ -22,6 +22,7 @@
         # 'views/inventory_overview_view.xml',
        
     ],
+
     'installable': True,
     'application': False,
 }
