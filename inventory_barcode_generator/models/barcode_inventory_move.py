@@ -14,6 +14,10 @@ class BarcodeInventoryMove(models.TransientModel):
     quantity = fields.Float(string="Quantity", required=True, default=1.0)
     location_id = fields.Many2one('stock.location', string="Source Location",store=True)
     location_dest_id = fields.Many2one('stock.location', string="Destination Location")
+    move_type = fields.Selection([
+        ('transfer', 'Transfer'),
+        ('delivery', 'Receipt')
+    ], string='Move Type', required=True, default='transfer')
     move_line_ids = fields.One2many('barcode.inventory.move.line', 'barcode_inventory_move_id', string='Move Lines')
 
 
@@ -61,12 +65,17 @@ class BarcodeInventoryMove(models.TransientModel):
         if not self.move_line_ids:
             raise UserError("No products to move.")
 
-        picking_type = self.env.ref('stock.picking_type_internal')
+        picking_type_internal = self.env.ref('stock.picking_type_internal')
+        picking_type_out = self.env.ref('stock.picking_type_out')
+        picking_type = picking_type_internal if self.move_type == 'transfer' else picking_type_out
+
         picking = self.env['stock.picking'].create({
             'picking_type_id': picking_type.id,
             'location_id': self.move_line_ids[0].location_id.id,
             'location_dest_id': self.location_dest_id.id,
         })
+
+        _logger.info(f"Created stock picking: {picking.name}")
 
         _logger.info(f"Created stock picking: {picking.name}")
 
@@ -98,7 +107,7 @@ class BarcodeInventoryMove(models.TransientModel):
 
         _logger.info(f"Move Line Created")
 
-        picking.button_validate()
+        # picking.button_validate()
 
         _logger.info(f"Stock picking {picking.name} validated")
         
@@ -108,9 +117,9 @@ class BarcodeInventoryMove(models.TransientModel):
         'params': {
             'title': 'Success',
             'message': 'Stock picking validated successfully.',
-            'type': 'success',  # Use 'success' for green color
+            'type': 'success', 
             'sticky': False,
-            'next': {'type': 'ir.actions.act_window_close'}  # Chain the close window action
+            'next': {'type': 'ir.actions.act_window_close'}
         },
     }
 
