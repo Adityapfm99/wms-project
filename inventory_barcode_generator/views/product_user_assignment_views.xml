@@ -1,0 +1,54 @@
+<odoo>
+    <record id="view_product_user_assignment_tree" model="ir.ui.view">
+        <field name="name">product.user.assignment.tree</field>
+        <field name="model">product.user.assignment</field>
+        <field name="arch" type="xml">
+            <tree string="Product User Assignment">
+               
+                <field name="user_id" readonly="state == 'signed'"/>
+                <field name="assign_date" readonly="state == 'signed'"/>
+                <field name="state" readonly="state == 'signed'"/>
+                <field name="stock_location_ids" widget="many2many_tags" readonly="state == 'signed'"/>
+                <field name="product_ids" widget="many2many_tags" readonly="state == 'signed'"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_user_assignment_form" model="ir.ui.view">
+        <field name="name">product.user.assignment.form</field>
+        <field name="model">product.user.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Product User Assignment" >
+                <group>
+                    <field name="barcode" placeholder="Scan Barcode"  invisible="state == 'signed'"/>
+                    <field name="product_ids" widget="many2many_tags"  readonly="state == 'signed'"/>
+                    <field name="user_id"  readonly="state == 'signed'"/>
+                    <field name="assign_date"  readonly="state == 'signed'"/>
+                    <field name="state" readonly="1"/>
+                    <field name="stock_location_ids" widget="many2many_tags"/>
+                    <button name="action_sign" string="Sign" type="object" class="btn-primary" invisible="state == 'signed'"/>
+
+                </group>
+               
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_user_assignment_sign_form" model="ir.ui.view">
+        <field name="name">product.user.assignment.sign.form</field>
+        <field name="model">product.user.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Sign Product Assignment">
+                <group>
+                    <field name="signature" widget="signature" options="{'color': 'black'}"/>
+                </group>
+                <footer>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button name="action_confirm_signature" type="object" string="Confirm Signature" class="btn-primary"/>
+                    
+                 </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

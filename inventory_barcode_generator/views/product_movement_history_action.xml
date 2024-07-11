@@ -1,0 +1,7 @@
+<odoo>
+    <record id="action_product_movement_history" model="ir.actions.act_window">
+        <field name="name">Asset Movement History</field>
+        <field name="res_model">product.movement.history</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

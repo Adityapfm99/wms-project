@@ -12,5 +12,24 @@
         <!-- Define the menu item -->
         <menuitem id="menu_barcode_inventory_move" name="Scan Barcode Inventory" parent="stock.menu_stock_root" sequence="10" action="action_barcode_inventory_move"/>
         <menuitem id="menu_child_inventory_move" name="Scan Barcode" parent="menu_barcode_inventory_move" action="action_barcode_inventory_move" sequence="10"/>
+      
+      <!-- Define the action to open the product user assignment -->
+        <record id="action_product_user_assignment" model="ir.actions.act_window">
+            <field name="name">Assign Asset to User</field>
+            <field name="res_model">product.user.assignment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_product_user_assignment" name="Assign Asset"  parent="menu_barcode_inventory_move" action="action_product_user_assignment"  sequence="12"/>
+   
+        <record id="action_product_movement_history" model="ir.actions.act_window">
+            <field name="name">Asset Movement History</field>
+            <field name="res_model">product.movement.history</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+         <menuitem id="menu_product_movement_history" name="Asset Movement History" parent="menu_barcode_inventory_move" action="action_product_movement_history" sequence="13"/>
+
+
     </data>
 </odoo>

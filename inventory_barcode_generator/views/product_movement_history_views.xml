@@ -1,0 +1,45 @@
+<odoo>
+      <record id="action_product_movement_history" model="ir.actions.act_window">
+            <field name="name">Product Movement History</field>
+            <field name="res_model">product.movement.history</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create': False}</field>
+        </record>
+
+   
+    <record id="view_product_movement_history_tree" model="ir.ui.view">
+        <field name="name">product.movement.history.tree</field>
+        <field name="model">product.movement.history</field>
+        <field name="arch" type="xml">
+            <tree string="Product Movement History">
+                <field name="product_id" readonly="1"/>
+                <field name="quantity" readonly="1"/> 
+                <field name="user_id" readonly="1"/>
+                <field name="move_date" readonly="1"/>
+                <field name="end_date" readonly="1"/>
+                <field name="stock_location_id" readonly="1"/>
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_movement_history_form" model="ir.ui.view">
+        <field name="name">product.movement.history.form</field>
+        <field name="model">product.movement.history</field>
+        <field name="arch" type="xml">
+             <form string="Product Movement History" create="false" edit="false">
+                <group>
+                    <field name="product_id" readonly="1"/>
+                    <field name="quantity" readonly="1"/>
+                    <field name="user_id" readonly="1"/>
+                    <field name="move_date" />
+                    <field name="stock_location_id"/>
+                    
+                </group>
+                <group>
+                    <field name="end_date"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

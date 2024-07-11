@@ -7,11 +7,12 @@
                 <form string="Scan Barcode" create="false" edit="false">
                    
                     <group>
+                        <field name="move_type" required="1" widget="radio"/>
                         <field name="location_dest_id" required="1" domain="[('usage', '=', 'internal')]" />
-                        <field name="location_id" required="1" domain="[('usage', '=', 'internal')]" />
+                        <field name="location_id"/>
                     </group>
                     <group class="o_field_barcode_group">
-                        <field name="barcode" invisible="location_dest_id == None"/>
+                        <field name="barcode" invisible="location_dest_id == None" />
                     </group>
                     <group>
                          <field name="move_line_ids">

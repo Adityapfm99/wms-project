@@ -7,7 +7,7 @@
         This module allows users to generate barcodes for products in the inventory.
     """,
     'author': 'Aditya',
-    'depends': ['base','stock','product'],
+    'depends': ['base', 'stock', 'product', 'web'],
     'data': [
         'security/ir.model.access.csv',
         'views/product_template_views.xml',
@@ -20,6 +20,12 @@
         'views/barcode_inventory_move_view.xml',
         'views/barcode_inventory_move_menu.xml',
         # 'views/inventory_overview_view.xml',
+        'views/product_user_assignment_views.xml',
+        'views/product_user_assignment_action.xml',
+        'report/product_user_assignment_report.xml',
+        'report/product_user_assignment_report_action.xml',
+        'views/product_movement_history_views.xml',
+        'views/product_movement_history_action.xml',
        
     ],
 

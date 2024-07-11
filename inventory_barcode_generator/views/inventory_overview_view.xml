@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="view_inventory_overview_kanban" model="ir.ui.view">
+            <field name="name">inventory.overview.kanban</field>
+            <field name="model">stock.picking.type</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div>
+                                    <button type="button" class="btn btn-primary" name="scan_barcode" t-att-title="record.name">
+                                        <i class="fa fa-barcode"></i> Scan Barcode
+                                    </button>
+                                    <div class="oe_kanban_content">
+                                        <div><strong><span t-esc="record.name"/></strong></div>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_footer">
+                                    <a type="button" role="button" class="btn btn-primary" t-att-href="'/web#action=' + env.ref('inventory_barcode_generator.action_barcode_inventory_move').id">
+                                        Scan Barcode Inventory
+                                    </a>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo> 
+
