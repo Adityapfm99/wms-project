@@ -13,6 +13,7 @@ class ProductUserAssignment(models.Model):
     user_id = fields.Many2one('res.users', string='User', required=True)
     assign_date = fields.Datetime(string='Assign Date', default=fields.Datetime.now)
     signature = fields.Binary(string='Signature')
+    movement_history_id = fields.Many2one('product.movement.history', string="Movement History", required=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('signed', 'Signed'),
@@ -55,12 +56,15 @@ class ProductUserAssignment(models.Model):
                 ('product_id', '=', product.id),
                 ('end_date', '=', False)
             ], order='move_date desc', limit=1)
-            
+            print("======product=====",product.barcode)
+            print("======self=====",self)
+
+           
             if previous_history:
                 previous_history.end_date = self.assign_date
             
-            # Create product movement history
-            self.env['product.movement.history'].create({
+            movement_history = self.env['product.movement.history'].create({
+                
                 'product_id': product.id,
                 'user_id': self.user_id.id,
                 'move_date': self.assign_date,
@@ -68,7 +72,14 @@ class ProductUserAssignment(models.Model):
                 'end_date': None,
                 'stock_location_id': self.env.user.stock_location_ids[:1].id if self.env.user.stock_location_ids else False,
                 'quantity': 1,
+                'signature_image': self.signature,
+                'barcode': product.barcode,
+                'assignment_id': self.id
             })
+
+
+            # Generate and attach the PDF to the movement history
+            movement_history._generate_signed_pdf()
 
         return {
             'type': 'ir.actions.client',

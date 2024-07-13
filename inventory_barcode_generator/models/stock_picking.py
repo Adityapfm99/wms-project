@@ -2,45 +2,39 @@ from odoo import models, fields, api
 import base64
 from reportlab.pdfgen import canvas
 from io import BytesIO
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm,mm
+from reportlab.lib.pagesizes import A4,landscape
+from odoo.exceptions import UserError
+from reportlab.lib.units import cm
 from datetime import datetime, timedelta, timezone
-from PIL import Image, ImageOps
+from PIL import Image,ImageOps
 import io
 from reportlab.lib.utils import ImageReader
 from reportlab.lib import colors
-from reportlab.graphics.barcode import code128
-from reportlab.graphics.shapes import Drawing
 from reportlab.platypus import Table, TableStyle
 
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
 
-class ProductMovementHistory(models.Model):
-    _name = 'product.movement.history'
-    _description = 'Product Movement History'
-
-    product_id = fields.Many2one('product.product', string='Asset', required=True)
-    user_id = fields.Many2one('res.users', string='Responsible')
-    stock_location_id = fields.Many2one('stock.location', string='Asset Location', required=True)
-    move_date = fields.Datetime(string='Movement Date', required=True, default=fields.Datetime.now)
-    quantity = fields.Float(string='Quantity')
-    start_date = fields.Datetime(string='Start Date')
-    end_date = fields.Datetime(string='End Date')
     signature_image = fields.Binary(string="Signature Image")
-    attachment_ids = fields.One2many('ir.attachment', 'res_id', string="Attachments", domain=[('res_model', '=', 'product.movement.history')])
-    barcode = fields.Char(string="Barcode")
-    assignment_id = fields.Many2one('product.user.assignment', string="User Assignment")
 
+    def set_signature(self, signature):
+        self.signature_image = signature
 
-    @api.onchange('start_date', 'end_date')
-    def _onchange_dates(self):
-        if self.start_date and self.end_date:
-            movements = self.env['stock.move'].search([
-                ('date', '>=', self.start_date),
-                ('date', '<=', self.end_date),
-            ])
-            self.product_id = movements.mapped('product_id')
+    def button_validate(self):
+        res = super(StockPicking, self).button_validate()
+        if self.state == 'done':
+                try:
+                    attachment = self._generate_signed_pdf()
+                    # Post a message in the chatter
+                    self.message_post(
+                        body="Signed picking receipt generated.",
+                        attachment_ids=[attachment.id]
+                    )
+                except Exception as e:
+                    print(f"Error generating PDF: {e}")
+        return res
+    
 
-            
     def _generate_signed_pdf(self):
         try:
             # Create a PDF in memory
@@ -56,6 +50,7 @@ class ProductMovementHistory(models.Model):
                 logo_image.save(logo_buffer, format='PNG')
                 p.drawImage(ImageReader(logo_buffer), 1.5 * cm, height - 4 * cm, width=2 * cm, height=2 * cm)
 
+
             # Company Header
             company = self.env.user.company_id
             p.setFont("Helvetica-Bold", 14)
@@ -69,26 +64,28 @@ class ProductMovementHistory(models.Model):
 
             # Document Title
             p.setFont("Helvetica-Bold", 16)
-            p.drawString(2 * cm, height - 6 * cm, "Signed Movement Asset")
+            p.drawString(2 * cm, height - 6 * cm, "Signed Picking Receipt")
 
-            # Movement Information
+            # Picking Information
             gmt_plus_7 = timezone(timedelta(hours=7))
             current_time = datetime.now(gmt_plus_7).strftime('%Y-%m-%d %H:%M:%S')
             p.setFont("Helvetica", 12)
-            p.drawString(2 * cm, height - 7.5 * cm, f"Reference: {self.user_id.name}")
+            p.drawString(2 * cm, height - 7.5 * cm, f"Picking: {self.name}")
             p.drawString(2 * cm, height - 8 * cm, f"Date: {current_time}")
-            p.drawString(2 * cm, height - 8.5 * cm, f"Signed by: {self.env.user.name}")
 
-            # Product Table
+            # Origin and Destination Locations
+            p.drawString(2 * cm, height - 10 * cm, f"Origin: {self.location_id.complete_name}")
+            p.drawString(2 * cm, height - 10.5 * cm, f"Destination: {self.location_dest_id.complete_name}")
+
+            # Product List in a Table
             p.setFont("Helvetica-Bold", 12)
-            p.drawString(2 * cm, height - 12* cm, "Products:")
-            
-            
-            data = [
-                ['Product', 'Quantity', 'Barcode', 'Location'],
-                [self.product_id.name, self.quantity, self.barcode or '', self.stock_location_id.name]
-            ]
-            table = Table(data, colWidths=[6 * cm, 2 * cm, 2 * cm, 4 * cm])
+            p.drawString(2 * cm, height - 12 * cm, "Products:")
+
+            data = [["Product", "Quantity"]]
+            for line in self.move_line_ids:
+                data.append([f"{line.product_id.default_code or ''} {line.product_id.name}", f"{line.quantity} {line.product_id.uom_id.name}"])
+
+            table = Table(data, colWidths=[10 * cm, 4 * cm])
             table.setStyle(TableStyle([
                 ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
                 ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
@@ -102,45 +99,53 @@ class ProductMovementHistory(models.Model):
             table.wrapOn(p, width, height)
             table.drawOn(p, 2 * cm, height - 14 * cm)
 
-            # Barcode
-            
-            # if self.barcode:
-            #     barcode = code128.Code128(self.barcode, barHeight=20*mm, barWidth=0.5*mm)
-            #     barcode.drawOn(p, 2 * cm, height - table_height - 14 * cm)
-
             # Signature
-
+            p.setFont("Helvetica-Bold", 12)
+            p.drawString(2 * cm, 2 * cm, "Signature")
+            p.line(5 * cm, 1.9 * cm, 10 * cm, 1.9 * cm)
+            # Assuming the signature image is stored in a field called 'signature_image'
             if self.signature_image:
+                # Convert base64 image data to an image
                 signature_image = base64.b64decode(self.signature_image)
                 image = Image.open(io.BytesIO(signature_image)).convert("RGBA")
+
+                # Create a white background
                 bg = Image.new("RGBA", image.size, (255, 255, 255, 255))
                 combined = Image.alpha_composite(bg, image)
+
+                # Convert combined image to RGB
                 combined = combined.convert("RGB")
+
+                # Save to buffer
                 image_buffer = io.BytesIO()
                 combined.save(image_buffer, format='PNG')
                 image_buffer.seek(0)
-                p.drawImage(ImageReader(image_buffer), 3 * cm, 1.5 * cm, width=6* cm, height=3 * cm)
+
+                p.drawImage(ImageReader(image_buffer), 5 * cm, 1.5 * cm, width=6* cm, height=3 * cm)
                 # Add signed by text below the signature
                 p.setFont("Helvetica", 10)
-                p.drawString(3 * cm, 1.5 * cm, f"Signed by: {self.env.user.name}")
+                p.drawString(6 * cm, 1.5 * cm, f"Signed by: {self.env.user.name}")
             else:
                 print("No signature image found.")
 
             p.save()
+
+            # Get the PDF data
             pdf_data = buffer.getvalue()
             buffer.close()
 
+            # Save the PDF as an attachment
             attachment = self.env['ir.attachment'].create({
-                'name': f'{self.env.user.name}_signed_asset_asssignment.pdf',
+                'name': f'{self.name}_signed_receipt.pdf',
                 'type': 'binary',
                 'datas': base64.b64encode(pdf_data),
-                'res_model': 'product.movement.history',
+                'res_model': 'stock.picking',
                 'res_id': self.id,
                 'mimetype': 'application/pdf'
             })
 
         except Exception as e:
             print(f"Error generating and attaching PDF: {e}")
-            raise KeyError(f"Error generating and attaching PDF: {e}")
+            raise UserError(f"Error generating and attaching PDF: {e}")
 
         return attachment

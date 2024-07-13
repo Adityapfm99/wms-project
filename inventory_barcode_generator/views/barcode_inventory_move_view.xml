@@ -18,6 +18,7 @@
                          <field name="move_line_ids">
                             <tree editable="bottom">
                                 <field name="product_id" required="1"/>
+                                <field name="picking_id" required="1"/>
                                 <field name="quantity" required="1"/>
                                 <field name="location_id" required="1"/>
                                 <field name="location_dest_id" required="1"/>
@@ -27,7 +28,25 @@
                     </group>
                     <footer>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
-                        <button name="action_move_inventory1" type="object" string="Validate" class="btn-primary"/>
+                        <button name="action_move_inventory1" type="object" string="Submit" class="btn-primary" invisible="move_type == 'receipt'"/>
+                        
+                        <button name="action_move_inventory1" type="object" string="Validate" class="btn-primary" invisible="move_type == 'delivery'"/>
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="view_picking_sign_wizard_form" model="ir.ui.view">
+            <field name="name">picking.sign.wizard.form</field>
+            <field name="model">picking.sign.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Sign Picking">
+                    <group>
+                        <field name="signature" widget="signature"/>
+                    </group>
+                    <footer>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button name="action_confirm_signature" type="object" string="Confirm Signature" class="btn-primary"/>
                     </footer>
                 </form>
             </field>

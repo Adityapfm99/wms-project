@@ -10,3 +10,4 @@ class BarcodeInventoryMoveLine(models.TransientModel):
     location_id = fields.Many2one('stock.location', string='Origin Warehouse')
     location_dest_id = fields.Many2one('stock.location', string='Destination Warehouse', required=True)
     barcode = fields.Char(string='Barcode')
+    picking_id = fields.Many2one('stock.picking', string='Picking', readonly=True)

@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 import base64
 import sys
-sys.path.append('/cloudclusters/odoo/odoo/venv/lib/python3.10/site-packages')
+sys.path.append('/cloudclusters/odoo/venv/lib/python3.10/site-packages')
 import barcode
 import os
 from barcode.writer import ImageWriter
