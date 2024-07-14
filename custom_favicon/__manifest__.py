@@ -5,12 +5,17 @@
     'author': 'Aditya',
     'summary': 'Custom Favicon for Odoo based on Company',
     'description': 'This module allows each company to have its own custom favicon in Odoo.',
-    'depends': ['web'],
+    'depends': ['stock','web'],
     'data': [
         'views/res_company_views.xml',
         'views/assets.xml',
     ],
-
+    'assets': {
+        'web.assets_backend': [
+            'custom_favicon/static/src/js/custom_title.js',
+        ],
+    },
+    
     'installable': True,
     'application': False,
     'license': 'LGPL-3',
