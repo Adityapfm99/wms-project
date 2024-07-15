@@ -1,0 +1,148 @@
+/* Change the main navbar background color */
+.o_main_navbar {
+    background-color: rgb(186,45,53) !important;
+}
+
+/* Change the topbar background color */
+.o_main_navbar .o_topbar {
+    background-color: rgb(186,45,53) !important;
+}
+
+/* Change the module icons background color */
+.o_app_icon {
+    background-color: rgb(186,45,53) !important;
+}
+
+/* Change the text color for better visibility */
+.o_main_navbar .o_menu_item,
+.o_main_navbar .o_menu_sections,
+.o_main_navbar .o_menu_brand,
+.o_main_navbar .o_menu_toggle,
+.o_main_navbar .o_menu_apps,
+.o_main_navbar .o_menu_item .o_app_icon,
+.o_main_navbar .o_nav_entry,
+.o_main_navbar .o-dropdown--no-caret button,
+.o_main_navbar .o-dropdown--no-caret span {
+    color: white !important;
+}
+
+/* Change the color of the active item */
+.o_main_navbar .o_menu_item.active,
+.o_main_navbar .o_menu_item:active,
+.o_main_navbar .o_menu_item:hover,
+.o_main_navbar .o-dropdown--no-caret:hover,
+.o_main_navbar .o-dropdown--no-caret:focus,
+.o_main_navbar .o-dropdown--no-caret:active {
+    background-color: rgb(130, 0, 4) !important;
+    color: white !important;
+}
+// .o_main_navbar .o_menu_sections .o_nav_entry
+/* Change the color of the dropdown toggle button */
+.o_menu_sections .dropdown-toggle.o_nav_entry {
+    background-color: rgb(186,45,53) !important;
+    border: 1px solid transparent;
+    color: white !important;
+}
+
+.o_main_navbar .o_menu_sections .o_nav_entry, .o_main_navbar .o_menu_sections .dropdown-toggle {
+    background:rgb(186,45,53);
+    border: 1px solid transparent;
+}
+
+/* Change the color of links inside the navbar */
+.o_main_navbar a,
+.o_main_navbar .o_menu_item a {
+    color: white !important;
+}
+
+/* Specific styling for inactive items */
+.o_main_navbar .o_menu_item:not(.active),
+.o_main_navbar .o_menu_sections .o_menu_entry_lvl_1,
+.o_main_navbar .o_menu_item.o_inactive {
+    background-color: rgb(182, 4, 9) !important;
+    color: white !important;
+}
+
+/* Specific styling for child menu items */
+.o_main_navbar .dropdown-menu {
+    background-color: white !important;
+}
+
+.o_main_navbar .dropdown-menu .dropdown-item {
+    background-color: white !important;
+    color: black !important;
+}
+
+.o_main_navbar .dropdown-menu .dropdown-item:hover,
+.o_main_navbar .dropdown-menu .dropdown-item:focus,
+.o_main_navbar .dropdown-menu .dropdown-item:active {
+    background-color: rgb(230, 230, 230) !important; /* Light gray for hover state */
+    color: black !important;
+}
+
+/* Change button styles in forms */
+button.btn,
+a.btn,
+input[type="button"].btn,
+input[type="submit"].btn,
+.btn-primary,
+.btn-secondary {
+    background-color: rgb(182, 4, 9) !important;
+    border-color: rgb(182, 4, 9) !important;
+    color: white !important;
+}
+
+/* Change button hover and active states */
+button.btn:hover,
+a.btn:hover,
+input[type="button"].btn:hover,
+input[type="submit"].btn:hover,
+button.btn:active,
+a.btn:active,
+input[type="button"].btn:active,
+input[type="submit"].btn:active,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-secondary:hover,
+.btn-secondary:active {
+    background-color: rgb(130, 0, 4) !important;
+    border-color: rgb(130, 0, 4) !important;
+    color: white !important;
+}
+
+/* Ensure all form elements and headers are styled */
+.o_control_panel .o_cp_buttons button,
+.o_control_panel .o_cp_buttons a,
+.o_control_panel .o_cp_buttons input[type="button"],
+.o_control_panel .o_cp_buttons input[type="submit"],
+.o_list_buttons button,
+.o_list_buttons a,
+.o_list_buttons input[type="button"],
+.o_list_buttons input[type="submit"],
+.o_form_buttons_edit button,
+.o_form_buttons_edit a,
+.o_form_buttons_edit input[type="button"],
+.o_form_buttons_edit input[type="submit"] {
+    background-color: rgb(182, 4, 9) !important;
+    border-color: rgb(182, 4, 9) !important;
+    color: white !important;
+}
+
+/* Specific hover effect for the navbar */
+.o_main_navbar .o_menu_item:hover,
+.o_main_navbar .o_menu_item:focus,
+.o_main_navbar .o_menu_item:active,
+.o_main_navbar .o_menu_sections .o_menu_item:hover,
+.o_main_navbar .o_menu_sections .o_menu_item:focus,
+.o_main_navbar .o_menu_sections .o_menu_item:active {
+    background-color: rgb(130, 0, 4) !important;
+    color: white !important;
+}
+
+/* Ensure hover effect for dropdown toggle button */
+.o_menu_sections .dropdown-toggle:hover,
+.o_menu_sections .dropdown-toggle:focus,
+.o_menu_sections .dropdown-toggle:active {
+    background-color: rgb(130, 0, 4) !important;
+    color: white !important;
+}

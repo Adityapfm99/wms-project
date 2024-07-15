@@ -9,11 +9,13 @@
     'data': [
         'views/res_company_views.xml',
         'views/assets.xml',
-        'views/custom_login_template.xml'
+        'views/custom_login_template.xml',
+        # 'views/custom_theme_template.xml'
     ],
     'assets': {
         'web.assets_backend': [
             'custom_favicon/static/src/js/custom_title.js',
+            'custom_favicon/static/src/scss/custom_header.scss',
         ],
     },
     
