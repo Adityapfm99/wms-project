@@ -9,6 +9,7 @@
     'data': [
         'views/res_company_views.xml',
         'views/assets.xml',
+        'views/custom_login_template.xml'
     ],
     'assets': {
         'web.assets_backend': [
