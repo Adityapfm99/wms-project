@@ -1,17 +1,17 @@
 /* Change the main navbar background color */
 // rgb(26,135,102)
 .o_main_navbar {
-    background-color: rgb(186,45,53) !important;
+    background-color: rgb(26,135,102) !important;
 }
 
 /* Change the topbar background color */
 .o_main_navbar .o_topbar {
-    background-color: rgb(186,45,53) !important;
+    background-color:rgb(26,135,102) !important;
 }
 
 /* Change the module icons background color */
 .o_app_icon {
-    background-color: rgb(186,45,53) !important;
+    background-color: rgb(26,135,102) !important;
 }
 
 /* Change the text color for better visibility */
@@ -34,19 +34,19 @@
 .o_main_navbar .o-dropdown--no-caret:hover,
 .o_main_navbar .o-dropdown--no-caret:focus,
 .o_main_navbar .o-dropdown--no-caret:active {
-    background-color: rgb(130, 0, 4) !important;
+    background-color: rgb(49, 111, 65) !important;
     color: white !important;
 }
 // .o_main_navbar .o_menu_sections .o_nav_entry
 /* Change the color of the dropdown toggle button */
 .o_menu_sections .dropdown-toggle.o_nav_entry {
-    background-color: rgb(186,45,53) !important;
+    background-color:rgb(26,135,102) !important;
     border: 1px solid transparent;
     color: white !important;
 }
 
 .o_main_navbar .o_menu_sections .o_nav_entry, .o_main_navbar .o_menu_sections .dropdown-toggle {
-    background:rgb(186,45,53);
+    background:rgb(26,135,102);
     border: 1px solid transparent;
 }
 
@@ -60,7 +60,7 @@
 .o_main_navbar .o_menu_item:not(.active),
 .o_main_navbar .o_menu_sections .o_menu_entry_lvl_1,
 .o_main_navbar .o_menu_item.o_inactive {
-    background-color: rgb(182, 4, 9) !important;
+    background-color: rgb(26,135,102) !important;
     color: white !important;
 }
 
@@ -88,8 +88,8 @@ input[type="button"].btn,
 input[type="submit"].btn,
 .btn-primary,
 .btn-secondary {
-    background-color: rgb(182, 4, 9) !important;
-    border-color: rgb(182, 4, 9) !important;
+    background-color:rgb(26,135,102) !important;
+    border-color: rgb(26,135,102) !important;
     color: white !important;
 }
 
@@ -106,8 +106,8 @@ input[type="submit"].btn:active,
 .btn-primary:active,
 .btn-secondary:hover,
 .btn-secondary:active {
-    background-color: rgb(130, 0, 4) !important;
-    border-color: rgb(130, 0, 4) !important;
+    background-color: rgb(49, 111, 65) !important;
+    border-color: rgb(49, 111, 65) !important;
     color: white !important;
 }
 
@@ -124,8 +124,8 @@ input[type="submit"].btn:active,
 .o_form_buttons_edit a,
 .o_form_buttons_edit input[type="button"],
 .o_form_buttons_edit input[type="submit"] {
-    background-color: rgb(182, 4, 9) !important;
-    border-color: rgb(182, 4, 9) !important;
+    background-color: rgb(26,135,102) !important;
+    border-color: rgb(26,135,102) !important;
     color: white !important;
 }
 
@@ -136,7 +136,7 @@ input[type="submit"].btn:active,
 .o_main_navbar .o_menu_sections .o_menu_item:hover,
 .o_main_navbar .o_menu_sections .o_menu_item:focus,
 .o_main_navbar .o_menu_sections .o_menu_item:active {
-    background-color: rgb(130, 0, 4) !important;
+    background-color: rgb(49, 111, 65) !important;
     color: white !important;
 }
 
@@ -144,6 +144,6 @@ input[type="submit"].btn:active,
 .o_menu_sections .dropdown-toggle:hover,
 .o_menu_sections .dropdown-toggle:focus,
 .o_menu_sections .dropdown-toggle:active {
-    background-color: rgb(130, 0, 4) !important;
+    background-color: rgb(49, 111, 65) !important;
     color: white !important;
 }
