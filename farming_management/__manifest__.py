@@ -16,7 +16,7 @@
                 <li>Inventory and Sales Management</li>
                 <li>Detailed Reporting and Analytics</li>
             </ul>
-            <img src="/farming_management/static/description/tractors.png" alt="Farming Management" style="max-width: 100%;"/>
+            <img src="/farming_management/static/description/farming.png" alt="Farming Management" style="max-width: 100%;"/>
         </div>
     """,
     'depends': ['base', 'stock'],
