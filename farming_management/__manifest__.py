@@ -4,21 +4,7 @@
     'category': 'Farming Agriculture',
     'author': 'Aditya',
     'summary': 'Comprehensive management solution for agriculture and farming.',
-    'description': """
-        <div>
-            <h2>Farming Management</h2>
-            <p>This module provides a comprehensive suite of tools to manage farms, crops, livestock, equipment, and sales in an integrated system.</p>
-            <h3>Features:</h3>
-            <ul>
-                <li>Farm and Crop Management</li>
-                <li>Livestock Tracking</li>
-                <li>Equipment Maintenance</li>
-                <li>Inventory and Sales Management</li>
-                <li>Detailed Reporting and Analytics</li>
-            </ul>
-            <img src="/farming_management/static/description/icon.png" alt="Farming Management" style="max-width: 100%;"/>
-        </div>
-    """,
+    'description': "Farming Management",
     'depends': ['base', 'stock'],
     'data': [
         'security/ir.model.access.csv',
