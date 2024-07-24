@@ -1,0 +1,53 @@
+<odoo>
+    <!-- Tree View for BOM -->
+    <record id="view_bom_tree" model="ir.ui.view">
+        <field name="name">bom.tree</field>
+        <field name="model">farming_management.bom</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="crop_id"/>
+                <field name="total_cost"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for BOM -->
+    <record id="view_bom_form" model="ir.ui.view">
+        <field name="name">bom.form</field>
+        <field name="model">farming_management.bom</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="crop_id"/>
+                        <field name="total_cost" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="product_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="cost" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for BOM -->
+    <record id="action_bom" model="ir.actions.act_window">
+        <field name="name">Bills of Materials</field>
+        <field name="res_model">farming_management.bom</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_bom_tree"/>
+    </record>
+
+    <!-- Menu Item for BOM -->
+    <menuitem id="menu_bom" name="Bills of Materials" parent="menu_agriculture_root" action="action_bom"/>
+</odoo>

@@ -1,0 +1,78 @@
+<odoo>
+    <!-- Tree View for Crops -->
+    <record id="view_crop_tree" model="ir.ui.view">
+        <field name="name">crop.tree</field>
+        <field name="model">farming_management.crop</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="farm_id"/>
+                <field name="planting_date"/>
+                <field name="harvest_date"/>
+                <field name="quantity"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for Crops -->
+    <record id="view_crop_form" model="ir.ui.view">
+        <field name="name">crop.form</field>
+        <field name="model">farming_management.crop</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Crop Name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="period_to_produce" string="Period To Produce Crop (Months)"/>
+                            <field name="season"/>
+                        </group>
+                        <group>
+                            <field name="warehouse_id" string="Crop Warehouse"/>
+                            <field name="stock_location_id" string="Crop Stock Location"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Crop's Raw Materials">
+                            <field name="raw_material_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Crop's Labours">
+                            <!-- Define similar structure for labors -->
+                        </page>
+                        <page string="Crop's Overheads">
+                            <!-- Define similar structure for overheads -->
+                        </page>
+                        <page string="Diseases Of Crops">
+                            <!-- Define additional tabs as needed -->
+                        </page>
+                        <page string="List of Processes">
+                            <!-- Additional processes or steps -->
+                        </page>
+                        <page string="Crop's Description">
+                            <!-- Description and other details -->
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Crops -->
+    <record id="action_crop" model="ir.actions.act_window">
+        <field name="name">Crops</field>
+        <field name="res_model">farming_management.crop</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_crop_tree"/>
+    </record>
+
+    <!-- Menu Item for Crops -->
+    <menuitem id="menu_crop" name="Crops" parent="menu_agriculture_root" action="action_crop"/>
+</odoo>

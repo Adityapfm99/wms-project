@@ -1,0 +1,15 @@
+<odoo>
+    <template id="crop_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <h2>Crop Report: <t t-esc="doc.name"/></h2>
+                    <p><strong>Farm:</strong> <t t-esc="doc.farm_id.name"/></p>
+                    <p><strong>Planting Date:</strong> <t t-esc="doc.planting_date"/></p>
+                    <p><strong>Harvest Date:</strong> <t t-esc="doc.harvest_date"/></p>
+                    <p><strong>Quantity:</strong> <t t-esc="doc.quantity"/> kg</p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

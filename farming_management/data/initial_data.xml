@@ -1,0 +1,7 @@
+<odoo>
+    <record id="farm1" model="farming_management.farm">
+        <field name="name">Serang walantaka</field>
+        <field name="location">Cipetir</field>
+        <field name="area">150</field>
+    </record>
+</odoo>
