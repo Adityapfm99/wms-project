@@ -7,7 +7,7 @@
     'description': """
         <div>
             <h2>Farming Management</h2>
-            <p>This module provides a comprehensive suite of tools to manage farms, crops, equipment, and sales in an integrated system.</p>
+            <p>This module provides a comprehensive suite of tools to manage farms, crops, livestock, equipment, and sales in an integrated system.</p>
             <h3>Features:</h3>
             <ul>
                 <li>Farm and Crop Management</li>
@@ -16,7 +16,7 @@
                 <li>Inventory and Sales Management</li>
                 <li>Detailed Reporting and Analytics</li>
             </ul>
-            <img src="/farming_management/static/description/farming.png" alt="Farming Management" style="max-width: 100%;"/>
+            <img src="/farming_management/static/description/icon.png" alt="Farming Management" style="max-width: 100%;"/>
         </div>
     """,
     'depends': ['base', 'stock'],
@@ -32,7 +32,7 @@
         'views/crop_report_template.xml',
         'data/initial_data.xml',
     ],
-    'images': ['static/description/icon.png'], 
+    'images': ['static/description/farming.png'], 
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
