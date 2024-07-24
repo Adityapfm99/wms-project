@@ -1,8 +1,8 @@
 {
-    'name': 'Custom Favicon',
+    'name': 'Custom Favicon & Theme',
     'version': '1.0',
     'category': 'Website',
-    'author': 'Aditya',
+    'author': 'Mahesa Tech',
     'summary': 'Custom Favicon for Odoo based on Company',
     'description': 'This module allows each company to have its own custom favicon in Odoo.',
     'depends': ['stock','web'],
@@ -10,7 +10,6 @@
         'views/res_company_views.xml',
         'views/assets.xml',
         'views/custom_login_template.xml',
-        # 'views/custom_theme_template.xml'
     ],
     'assets': {
         'web.assets_backend': [
@@ -22,4 +21,7 @@
     'installable': True,
     'application': False,
     'license': 'LGPL-3',
+    'price': 2,
+    'currency': 'USD',
+    
 }
