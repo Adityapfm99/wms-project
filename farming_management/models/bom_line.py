@@ -11,5 +11,5 @@ class BillOfMaterialsLine(models.Model):
 
     @api.depends('product_id', 'quantity')
     def _compute_cost(self):
-        for line in self:
+        for line in self: 
             line.cost = line.product_id.standard_price * line.quantity
