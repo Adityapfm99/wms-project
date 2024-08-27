@@ -1,0 +1,8 @@
+<odoo>
+    <menuitem id="menu_agriculture_root" name="Agriculture Management" sequence="1"/>
+    <menuitem id="menu_farm" name="Farms" parent="menu_agriculture_root" action="action_farm"/>
+    <menuitem id="menu_crop" name="Crops" parent="menu_agriculture_root" action="action_crop"/>
+    <!-- <menuitem id="menu_livestock" name="Livestock" parent="menu_agriculture_root" action="action_livestock"/> -->
+    <!-- <menuitem id="menu_equipment" name="Equipment" parent="menu_agriculture_root" action="action_equipment"/> -->
+    <menuitem id="menu_crop_reports" name="Crop Analysis" parent="menu_agriculture_root" action="report_crop_details"/>
+</odoo>

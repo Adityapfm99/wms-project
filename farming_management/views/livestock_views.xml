@@ -1,0 +1,45 @@
+<odoo>
+    <!-- Tree View for Livestock -->
+    <record id="view_livestock_tree" model="ir.ui.view">
+        <field name="name">livestock.tree</field>
+        <field name="model">farming_management.livestock</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="breed"/>
+                <field name="age"/>
+                <field name="health_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for Livestock -->
+    <record id="view_livestock_form" model="ir.ui.view">
+        <field name="name">livestock.form</field>
+        <field name="model">farming_management.livestock</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="breed"/>
+                        <field name="age"/>
+                        <field name="health_status"/>
+                        <field name="farm_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Livestock -->
+    <record id="action_livestock" model="ir.actions.act_window">
+        <field name="name">Livestock</field>
+        <field name="res_model">farming_management.livestock</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_livestock_tree"/>
+    </record>
+
+    <!-- Menu Item for Livestock -->
+    <menuitem id="menu_livestock" name="Livestock" parent="menu_agriculture_root" action="action_livestock"/>
+</odoo>

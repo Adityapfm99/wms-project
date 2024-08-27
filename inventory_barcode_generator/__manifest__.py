@@ -6,7 +6,7 @@
     'description': """
         This module allows users to generate barcodes for products in the inventory.
     """,
-    'author': 'Aditya',
+    'author': 'Aditya Nugrahas',
     'depends': ['base', 'stock', 'product', 'web'],
     'data': [
         'security/ir.model.access.csv',

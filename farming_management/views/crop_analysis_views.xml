@@ -1,0 +1,40 @@
+<odoo>
+    <!-- Pivot View for Crop Analysis -->
+    <record id="view_crop_pivot" model="ir.ui.view">
+        <field name="name">crop.pivot</field>
+        <field name="model">farming_management.crop</field>
+        <field name="arch" type="xml">
+            <pivot string="Crop Analysis">
+                <field name="name" type="row"/>
+                <field name="farm_id" type="col"/>
+                <field name="quantity" type="measure"/>
+                <field name="planting_date" interval="month" type="col"/>
+                <field name="harvest_date" interval="month" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Graph View for Crop Analysis -->
+    <record id="view_crop_graph" model="ir.ui.view">
+        <field name="name">crop.graph</field>
+        <field name="model">farming_management.crop</field>
+        <field name="arch" type="xml">
+            <graph string="Crop Analysis" type="bar">
+                <field name="name" type="row"/>
+                <field name="quantity" type="measure"/>
+                <field name="planting_date" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Action for Crop Analysis -->
+    <record id="action_crop_analysis" model="ir.actions.act_window">
+        <field name="name">Crop Analysis</field>
+        <field name="res_model">farming_management.crop</field>
+       <field name="view_mode">pivot,graph</field> 
+        <field name="view_id" ref="view_crop_pivot"/>
+    </record>
+
+    <!-- Menu Item for Crop Analysis -->
+    <menuitem id="menu_crop_analysis" name="Report Analysis" parent="menu_agriculture_root" action="action_crop_analysis"/>
+</odoo>

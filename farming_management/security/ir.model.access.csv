@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_farm_manager,farm manager,model_farming_management_farm,base.group_user,1,1,1,1
+access_farm_user,farm user,model_farming_management_farm,base.group_user,1,0,0,0
+access_crop_manager,crop manager,model_farming_management_crop,base.group_user,1,1,1,1
+access_crop_user,crop user,model_farming_management_crop,base.group_user,1,0,0,0
+access_livestock_manager,livestock manager,model_farming_management_livestock,base.group_user,1,1,1,1
+access_livestock_user,livestock user,model_farming_management_livestock,base.group_user,1,0,0,0
+access_equipment_manager,equipment manager,model_farming_management_equipment,base.group_user,1,1,1,1
+access_equipment_user,equipment user,model_farming_management_equipment,base.group_user,1,0,0,0
+access_crop_dashboard_manager,crop dashboard manager,model_farming_management_crop_dashboard,base.group_user,1,1,1,1
+access_bom_manager,bom manager,model_farming_management_bom,base.group_user,1,1,1,1
+access_bom_line_manager,bom line manager,model_farming_management_bom_line,base.group_user,1,1,1,1
+access_crop_raw_material_manager,crop raw material manager,model_farming_management_crop_raw_material,base.group_user,1,1,1,1
