@@ -1,7 +1,7 @@
 {
     'name': 'Inventory Barcode Generator',
     'version': '1.0',
-    'category': 'Inventory',
+    'category': 'Inventory Barcode',
     'summary': 'Generate barcodes for inventory products',
     'description': """
         This module allows users to generate barcodes for products in the inventory.
