@@ -1,0 +1,15 @@
+<odoo>
+    <!-- Group for Purchase Request Users (Staff) -->
+    <record id="group_purchase_request_user" model="res.groups">
+        <field name="name">Purchase Request User</field>
+        <field name="category_id" ref="base.module_category_purchase_management"/>
+    </record>
+
+    <!-- Group for Purchase Managers -->
+    <record id="group_purchase_manager" model="res.groups">
+        <field name="name">Purchase Manager</field>
+        <field name="category_id" ref="base.module_category_purchase_management"/>
+    </record>
+
+    
+</odoo>

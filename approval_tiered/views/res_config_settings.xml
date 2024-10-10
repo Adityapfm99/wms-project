@@ -1,0 +1,14 @@
+<odoo>
+    <record id="tiered_approval_purchase_settings" model="ir.ui.view">
+        <field name="name">tiered.approval.purchase.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Tiered Approval Settings">
+                <group>
+                    <field name="approval_amount_1" string="Single Approval Threshold"/>
+                    <field name="approval_amount_2" string="Double Approval Threshold"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

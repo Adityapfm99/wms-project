@@ -1,0 +1,60 @@
+<odoo>
+    <!-- First Inherited View to Modify the Form -->
+    <record id="view_purchase_request_form" model="ir.ui.view">
+        <field name="name">purchase.request.form.inherit.approval</field>
+        <field name="model">purchase.request</field>
+        <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Add the Request Approval button -->
+           <xpath expr="//header/button[@name='button_to_approve']" position="replace">
+                <button name="button_request_approval" type="object" string="Request approval"
+                    class="oe_highlight"
+                    invisible="state not in ('draft') or state in ('approved', 'waiting_approval')"/>
+            </xpath>
+
+            <!-- Hide the approver fields -->
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <field name="approver_id" invisible="1"/>
+                    <field name="second_approver_id" invisible="1"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Modify the Status Bar and Add Approve Button -->
+    <record id="purchase_request_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.request.form.inherit</field>
+        <field name="model">purchase.request</field>
+        <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Modify the status bar to reflect all necessary states -->
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="statusbar_visible">draft,one_approval,waiting_approval,approved,rejected,done</attribute>
+                <attribute name="statusbar_colors">
+                    draft:gray,one_approval:blue,waiting_approval:orange,approved:green,rejected:red,done:blue
+                </attribute>
+            </xpath>
+
+            <!-- Hide 'Request Approval' button based on states using modifiers -->
+            <xpath expr="//header/button[@name='button_request_approval']" position="attributes">
+                <attribute name="modifiers">
+                    {'invisible': [['state', 'in', ['waiting_approval', 'approved', 'rejected', 'done']]]}
+                </attribute>
+            </xpath>
+
+            <!-- Add a second approval button for managers (only visible during 'waiting_approval') -->
+           <xpath expr="//header" position="inside">
+                <button name="button_approve" type="object" string="Approve"
+                    class="oe_highlight"
+                    invisible="state not in ('waiting_approval') or state in ('approved')"/>
+
+            </xpath>
+            
+
+        </field>
+    </record>
+</odoo>

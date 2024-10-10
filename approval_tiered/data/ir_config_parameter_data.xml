@@ -1,0 +1,11 @@
+<odoo>
+    <record id="tiered_approval_purchase_approval_amount_1" model="ir.config_parameter">
+        <field name="key">tiered_approval_purchase.approval_amount_1</field>
+        <field name="value">5000000</field>
+    </record>
+
+    <record id="tiered_approval_purchase_approval_amount_2" model="ir.config_parameter">
+        <field name="key">tiered_approval_purchase.approval_amount_2</field>
+        <field name="value">10000000</field>
+    </record>
+</odoo>
