@@ -50,7 +50,7 @@
            <xpath expr="//header" position="inside">
                 <button name="button_approve" type="object" string="Approve"
                     class="oe_highlight"
-                    invisible="state not in ('waiting_approval') or state in ('approved')"/>
+                    invisible="state not in ('waiting_approval')"/>
 
             </xpath>
             

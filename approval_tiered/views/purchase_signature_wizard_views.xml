@@ -1,18 +1,19 @@
+
 <odoo>
-    <record id="view_purchase_request_signature_wizard_form" model="ir.ui.view">
-        <field name="name">purchase.request.signature.wizard.form</field>
-        <field name="model">purchase.request.signature.wizard</field>
-        <field name="arch" type="xml">
-            <form string="Approve with Signature">
-                <group>
-                    <field name="purchase_request_id" invisible="1"/>
-                    <field name="signature" widget="signature"/>
-                </group>
-                <footer>
-                    <button string="Approve" type="object" name="action_confirm_signature" class="btn-primary"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
-                </footer>
-            </form>
-        </field>
-    </record>
+<record id="view_purchase_request_first_approval_wizard_form" model="ir.ui.view">
+    <field name="name">purchase.request.first.approval.wizard.form</field>
+    <field name="model">purchase.request.first.approval.wizard</field>
+    <field name="arch" type="xml">
+        <form string="Approve with Signature First Approval">
+            <group>
+                <field name="purchase_request_id" readonly="1"/>
+                <field name="signature" widget="signature"/>
+            </group>
+            <footer>
+                <button string="Save" type="object" name="action_confirm_signature" class="btn-primary"/>
+                <button string="Discard" class="btn-secondary" special="cancel"/>
+            </footer>
+        </form>
+    </field>
+</record>
 </odoo>

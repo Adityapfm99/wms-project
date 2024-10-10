@@ -1,27 +1,25 @@
 <odoo>
     <template id="report_purchase_request_document_inherit" inherit_id="purchase_request.report_purchase_request">
-        <!-- Insert after the product table or at the end of the page -->
         <xpath expr="//div[@class='page']" position="inside">
-            <t t-if="o.approval_stage == 'approved' or o.approval_stage == 'two_approvals'">
-                <div class="mt32">
-                    <h3>Approval Information</h3>
-                    <table class="table table-sm">
+            <t t-if="o.approval_signature_1 or o.approval_signature_2">
+                <!-- Increase margin-top to move section closer to the footer -->
+                <div class="mt96" style="margin-top: 400px;"> <!-- Adjust this value as needed -->
+                    <h3 style="font-size: 14px;">Approval Information</h3> <!-- Smaller font size for title -->
+                    <table class="table table-sm" style="font-size: 12px;"> <!-- Smaller table font -->
                         <tr>
                             <!-- First Approval -->
                             <td>
                                 <t t-if="o.approval_signature_1">
-                                    <p><strong>First Approval By:</strong> <t t-esc="o.approver_id.name"/></p>
-                                    <p><strong>First Approval Signature:</strong></p>
-                                    <!-- Render the signature image -->
+                                    <p style="font-size: 12px;"><strong>First Approval By:</strong> <t t-esc="o.approver_id.name"/></p>
+                                    <p style="font-size: 12px;"><strong>Sign:</strong></p>
                                     <img t-att-src="'data:image/png;base64,' + o.approval_signature_1.decode()" width="250px" height="150px"/>
                                 </t>
                             </td>
                             <!-- Second Approval -->
                             <td>
                                 <t t-if="o.approval_signature_2">
-                                    <p><strong>Second Approval By:</strong> <t t-esc="o.second_approver_id.name"/></p>
-                                    <p><strong>Second Approval Signature:</strong></p>
-                                    <!-- Render the second signature image -->
+                                    <p style="font-size: 12px;"><strong>Second Approval By:</strong> <t t-esc="o.second_approver_id.name"/></p>
+                                    <p style="font-size: 12px;"><strong>Sign:</strong></p>
                                     <img t-att-src="'data:image/png;base64,' + o.approval_signature_2.decode()" width="250px" height="150px"/>
                                 </t>
                             </td>

@@ -13,6 +13,7 @@
         'views/purchase_request_views.xml',
         'views/res_config_settings.xml',
         'views/purchase_signature_wizard_views.xml',
+        'views/purchase_signature_wizard_views second.xml',
         'report/report_purchase_request.xml',
     ],
     'images': ['static/description/farming.png'], 
