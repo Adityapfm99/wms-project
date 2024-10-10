@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_purchase_request_creation_signature_wizard_form" model="ir.ui.view">
+        <field name="name">purchase.request.creation.signature.wizard.form</field>
+        <field name="model">purchase.request.creation.signature.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sign Purchase Request Creation">
+                <group>
+                    <field name="purchase_request_id" readonly="1"/>
+                    <field name="signature" widget="signature" required="1"/>
+                </group>
+                <footer>
+                    <button string="Save" type="object" name="action_confirm_signature" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

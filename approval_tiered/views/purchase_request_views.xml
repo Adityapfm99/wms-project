@@ -10,6 +10,7 @@
            <xpath expr="//header/button[@name='button_to_approve']" position="replace">
                 <button name="button_request_approval" type="object" string="Request approval"
                     class="oe_highlight"
+                    groups="purchase.group_purchase_manager"
                     invisible="state not in ('draft') or state in ('approved', 'waiting_approval')"/>
             </xpath>
 
@@ -40,11 +41,12 @@
             </xpath>
 
             <!-- Hide 'Request Approval' button based on states using modifiers -->
-            <xpath expr="//header/button[@name='button_request_approval']" position="attributes">
-                <attribute name="modifiers">
-                    {'invisible': [['state', 'in', ['waiting_approval', 'approved', 'rejected', 'done']]]}
-                </attribute>
-            </xpath>
+            <!-- <xpath expr="//header/button[@name='button_request_approval']" position="replace">
+                <button name="button_request_approval" type="object" string="Request Approval"
+                    class="oe_highlight"
+                    groups="purchase.group_purchase_manager"
+                    modifiers="{'invisible': [['state', 'in', ['waiting_approval','approved', 'rejected', 'done']]]}"/>
+            </xpath> -->
 
             <!-- Add a second approval button for managers (only visible during 'waiting_approval') -->
            <xpath expr="//header" position="inside">
