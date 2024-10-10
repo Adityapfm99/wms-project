@@ -2,25 +2,25 @@
     <template id="report_purchase_request_document_inherit" inherit_id="purchase_request.report_purchase_request">
         <xpath expr="//div[@class='page']" position="inside">
             <t t-if="o.approval_signature_1 or o.approval_signature_2">
-                <!-- Increase margin-top to move section closer to the footer -->
-                <div class="mt96" style="margin-top: 400px;"> <!-- Adjust this value as needed -->
-                    <h3 style="font-size: 14px;">Approval Information</h3> <!-- Smaller font size for title -->
-                    <table class="table table-sm" style="font-size: 12px;"> <!-- Smaller table font -->
+                <!-- Adjust margin-top to move section closer to the footer -->
+                <div class="mt96" style="margin-top: 2000px; padding-bottom: 50px;"> <!-- Increased margin and padding -->
+                    <h3 style="font-size: 14px;">Approval Information</h3>
+                    <table class="table table-sm" style="font-size: 12px; width: 100%;">
                         <tr>
                             <!-- First Approval -->
-                            <td>
+                            <td style="width: 50%;">
                                 <t t-if="o.approval_signature_1">
                                     <p style="font-size: 12px;"><strong>First Approval By:</strong> <t t-esc="o.approver_id.name"/></p>
                                     <p style="font-size: 12px;"><strong>Sign:</strong></p>
-                                    <img t-att-src="'data:image/png;base64,' + o.approval_signature_1.decode()" width="250px" height="150px"/>
+                                    <img t-att-src="'data:image/png;base64,' + o.approval_signature_1.decode()" width="200px" height="150px"/>
                                 </t>
                             </td>
                             <!-- Second Approval -->
-                            <td>
+                            <td style="width: 50%;">
                                 <t t-if="o.approval_signature_2">
                                     <p style="font-size: 12px;"><strong>Second Approval By:</strong> <t t-esc="o.second_approver_id.name"/></p>
                                     <p style="font-size: 12px;"><strong>Sign:</strong></p>
-                                    <img t-att-src="'data:image/png;base64,' + o.approval_signature_2.decode()" width="250px" height="150px"/>
+                                    <img t-att-src="'data:image/png;base64,' + o.approval_signature_2.decode()" width="200px" height="150px"/>
                                 </t>
                             </td>
                         </tr>
