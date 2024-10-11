@@ -10,10 +10,11 @@
            <xpath expr="//header/button[@name='button_to_approve']" position="replace">
                 <button name="button_request_approval" type="object" string="Request approval"
                     class="oe_highlight"
-                    groups="purchase.group_purchase_manager"
-                    invisible="state not in ('draft') or state in ('approved', 'waiting_approval')"/>
+                    groups="purchase.group_purchase_user,purchase.group_purchase_manager"
+                    invisible="state not in ('draft') or state in ('approved', 'waiting_approval','one_approval')"/>
             </xpath>
-
+            
+            
             <!-- Hide the approver fields -->
             <xpath expr="//sheet" position="inside">
                 <group>
@@ -34,12 +35,12 @@
 
             <!-- Modify the status bar to reflect all necessary states -->
             <xpath expr="//field[@name='state']" position="attributes">
-                <attribute name="statusbar_visible">draft,one_approval,waiting_approval,approved,rejected,done</attribute>
+                <attribute name="statusbar_visible">draft,one_approval,waiting_approval,waiting_approvals,approved,rejected,done</attribute>
                 <attribute name="statusbar_colors">
                     draft:gray,one_approval:blue,waiting_approval:orange,approved:green,rejected:red,done:blue
                 </attribute>
             </xpath>
-
+            
             <!-- Hide 'Request Approval' button based on states using modifiers -->
             <!-- <xpath expr="//header/button[@name='button_request_approval']" position="replace">
                 <button name="button_request_approval" type="object" string="Request Approval"
@@ -52,9 +53,7 @@
            <xpath expr="//header" position="inside">
                 <button name="button_approve" type="object" string="Approve"
                     class="oe_highlight"
-                    invisible="state not in ('waiting_approval')"/>
-
-            </xpath>
+                    invisible="state not in ('waiting_approval','waiting_approvals','one_approval')"/>
             
 
         </field>
